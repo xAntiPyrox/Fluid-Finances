@@ -11,5 +11,5 @@ program = util.Program("Alpha 0.1")
 
 program.greeting()
 while (program.isRunning() is True):
-	userInput = input("\n>>> ")
+	userInput = program.getInput()
 	program.handleInput(userInput)
