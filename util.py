@@ -47,13 +47,16 @@ class Program:
 			self.clearScreen()
 		elif userInput[0] == "transactions":
 			self.viewTransactions(userInput)
+		elif userInput[0] == "new":
+			self.new(userInput)
 		elif userInput[0] == "help":
 			print("List of available commands: \n" +
-				  "quit/exit: Ends the program\n" +
-				  "clear: Clears all text on the screen\n" +
-				  "help: List all available commands")
+				  "transactions:\t\tView transactions for a specified week\n" +
+				  "quit/exit:\t\tEnds the program\n" +
+				  "clear:\t\t\tClears all text on the screen\n" +
+				  "help:\t\t\tList all available commands")
 		else:
-			print(userInput + " is not a valid command")
+			print(userInput[0] + " is not a valid command")
 
 	# view transactions, done for current week if a date isn't given
 	def viewTransactions(self, userInput):
@@ -65,6 +68,34 @@ class Program:
 
 		# print the dates being covered
 		print("Showing transactions for " + week.toString(0) + " to " + week.toString(6))
+
+	# modular command for new things
+	def new(self, userInput):
+		if len(userInput) < 2:
+			print("'new' requires additional parameters\n" +
+				  "transaction:\t\tAdd a new transaction")
+		else:
+			if userInput[1] == "transaction":
+				self.newTransaction(userInput)
+
+	def newTransaction(self, userInput):
+		if len(userInput) < 3:
+			date = input("Date: ")
+			payee = input("Payee: ")
+			withdrawl = input("Withdrawl? (yes/no): ")
+			amount = input("Amount: ")
+		else:
+			date = userInput[2]
+			payee = userInput[3]
+			withdrawl = userInput[4]
+			amount = userInput[5]
+
+		if withdrawl == "yes" or "y" or "YES" or "Yes":
+			action = "was paid to"
+		else:
+			action = "was recieved from"
+
+		print("On " + date + ", " + amount + " " + action + " " + payee) 
 
 ### Maintains information for working within a specific week ###
 class Week:
